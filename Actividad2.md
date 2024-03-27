@@ -1,16 +1,16 @@
 # Actividad
-Paso 1.-
+## Paso 1.-
 
--XKAPU es una empresa nueva y tiene un producto hace 2 años
--Su producto esta teniendo una demanda inesperado y creciente.
--Se necesita mejorar y rediseñar la arquitectura del sistema para soportar la demanda y que su sistema no colapse, además que mantenga la misma funcionalidad.
--Requisitos no cambiantes y muy conocidos (No es necesario que sea adaptativo)
--Es necesario rediseñar los 4 componentes y todos son independientes.(Proceso incremental)
+- XKAPU es una empresa nueva y tiene un producto hace 2 años
+- Su producto esta teniendo una demanda inesperado y creciente.
+- Se necesita mejorar y rediseñar la arquitectura del sistema para soportar la demanda y que su sistema no colapse, además que mantenga la misma funcionalidad.
+- Requisitos no cambiantes y muy conocidos (No es necesario que sea adaptativo)
+- Es necesario rediseñar los 4 componentes y todos son independientes.(Proceso incremental)
 - 1 componente resulta ser más problemático y necesita rediseñarse primero.
 - Migrar a una plataforma es un trabajo tedioso y requerirá una mayor comunicación externa; interno entre el equipo, externo con el cliente.
 - El arquitecto técnico y el director de proyecto; no se ubican en el mismo lugar que el equipo de codificación y el equipo de pruebas. (Marruecos - Bélgica)
 
-Paso 2.-
+## Paso 2.-
 Método Scrum:
 
 - Dado que la empresa es nueva no cuenta con una metodología que permita la adaptabilidad del sistema de su producto, el método Scrum le hubiera permitido tener un análisis de riesgo y preveer la creciente demanda inesperada que tuvo su producto.
