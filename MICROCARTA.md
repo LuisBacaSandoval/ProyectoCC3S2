@@ -22,6 +22,7 @@ En resumen, nuestra visión es proporcionar una experiencia de juego de damas en
 - Corregir bugs o fallas en la logica del aplicativo durante los 6 meses después de lanzado el beta
 - Lanzar la versión definitiva en el 1er año de desarrollo
 - Lograr un promedio de 4 estrellas de calificación dentro de las tiendas de aplicativos dentro del primer año
+- Tener un promedio de 1000 usuarios activos dentro del primer mes y 10000 usuarios activos dentro del primer año
 - Buscar masificar el uso del aplicativo mediante un sistema de competencia o clasificación
 - Buscar la forma de monetizar el aplicativo para así asegurar su autosustentibilidad
 
