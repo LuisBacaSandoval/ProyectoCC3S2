@@ -18,8 +18,12 @@ En resumen, nuestra visión es proporcionar una experiencia de juego de damas en
 - Implementar funcionalidades que permitan jugar en modo solitario contra la inteligencia artificial y en modo multijugador en línea.
 
 ## Objetivos
-- 
-- 
+- Lanzar un versión beta de la aplicación en los 3 primeros meses
+- Corregir bugs o fallas en la logica del aplicativo durante los 6 meses después de lanzado el beta
+- Lanzar la versión definitiva en el 1er año de desarrollo
+- Lograr un promedio de 4 estrellas de calificación dentro de las tiendas de aplicativos dentro del primer año
+- Buscar masificar el uso del aplicativo mediante un sistema de competencia o clasificación
+- Buscar la forma de monetizar el aplicativo para así asegurar su autosustentibilidad
 
 ## Partes interesadas
 - Equipo de Desarrollo de Productos.
