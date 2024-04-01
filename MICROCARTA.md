@@ -15,6 +15,7 @@ En resumen, nuestra visión es proporcionar una experiencia de juego de damas en
 ## Alcance
 - Desarrollar una aplicación multiplataforma.
 - Diseñar una interfaz intuitiva y atractiva para mejorar la experiencia del usuario.
+- Implementar funcionalidades que permitan jugar en modo solitario contra la inteligencia artificial y en modo multijugador en línea.
 
 ## Objetivos
 - 
