@@ -16,6 +16,10 @@ En resumen, nuestra visión es proporcionar una experiencia de juego de damas en
 - Desarrollar una aplicación multiplataforma.
 - Diseñar una interfaz intuitiva y atractiva para mejorar la experiencia del usuario.
 - Implementar funcionalidades que permitan jugar en modo solitario contra la inteligencia artificial y en modo multijugador en línea.
+- Incluir la versión estándar del juego de damas chinas con un tablero de 8x8.
+- Permitir a los jugadores mover las fichas de acuerdo con las reglas tradicionales del juego.
+-  Integrar un sistema de puntuación y registro de victorias para los jugadores.
+
 
 ## Objetivos
 - Lanzar un versión beta de la aplicación en los 3 primeros meses
