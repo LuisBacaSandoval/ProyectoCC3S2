@@ -5,4 +5,5 @@ module org.example.sprintOne {
 
     opens org.example.sprintOne to javafx.fxml;
     exports org.example.sprintOne;
+    exports org.example.sprintOne.guicontroller;
 }
