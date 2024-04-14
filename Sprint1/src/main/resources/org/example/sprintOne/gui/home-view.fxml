@@ -19,12 +19,12 @@
                                     <Font name="System Bold Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="45.0" layoutY="102.0" text="Nombre de usuario" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0">
+                              <Label fx:id="txtUser1" layoutX="45.0" layoutY="102.0" text="Nombre de usuario" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="45.0" layoutY="167.0" text="Correo de usuario" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0">
+                              <Label fx:id="txtEmail1" layoutX="45.0" layoutY="167.0" text="Correo de usuario" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0">
                                  <font>
                                     <Font size="16.0" />
                                  </font>

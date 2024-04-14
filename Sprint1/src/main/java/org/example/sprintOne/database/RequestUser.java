@@ -1,6 +1,7 @@
 package org.example.sprintOne.database;
 
 import org.example.sprintOne.englishdraughts.User;
+import org.example.sprintOne.others.Notification;
 import org.example.sprintOne.others.PasswordEncryption;
 
 import java.sql.PreparedStatement;
@@ -27,7 +28,8 @@ public class RequestUser {
                 user.setId(99999999);
             }
         }catch (SQLException e){
-            System.out.println("El usuairo nose encuentra en la BDs");
+            Notification alerta = new Notification("El usuario no se encuentra registrado", "error");
+            alerta.getNotification().showAndWait();
         }
     }
 }
