@@ -54,7 +54,7 @@ public class HomeLoginController{
                 stage.setScene(scene);
                 stage.show();
                 //Comenzar el juego
-                controller.jugar();
+                controller.init();
                 // Opcional: cerrar la ventana de inicio de sesión actual
                 ((Stage) user.getScene().getWindow()).close();
             } catch (IOException e) {
