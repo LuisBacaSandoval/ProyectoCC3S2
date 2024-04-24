@@ -8,6 +8,7 @@
 - 004 Como usuario logueado, necesito visualizar mi información personal para poder identificar mi cuenta.
 - 007 Como jugador, necesito un tablero de 8x8 para poder jugar.
 - 010 Como jugador que desea jugar contra otra persona, necesito encontrar un oponente para poder iniciar el juego.
+- 011 Como jugador, necesito 12 fichas del mismo color para poder jugar
 
 ## Estructura del proyecto
 
@@ -50,3 +51,8 @@ Al ingresar se mostrará tu información y buscará un adversario de manera auto
 ![login](../img/home.jpg)
 
 ## Enlaces
+Diseño de la Interfaz Gráfica: [Figma](https://www.figma.com/file/oyr1ETp0ox2mi2joxj76XD/Damas-Americanas?type=design&node-id=0-1&mode=design&t=w0aK1wm1zRPSvR5X-0)
+
+Enlace Sprint 1: [Sprint 1](https://docs.google.com/document/d/1ThgAgrOu8m6m3Ke_WqOVXoSiiaSmrHiv/edit?usp=sharing&ouid=108760745686497932296&rtpof=true&sd=true)
+
+Informe de Estado Inicial: [Informe](https://docs.google.com/document/d/1MQZSqMf8NLaVFc-U6mmEhwrAdKhr3O2b/edit?usp=sharing&ouid=108760745686497932296&rtpof=true&sd=true)
