@@ -32,6 +32,10 @@ public class HomeController implements Initializable, InvalidationListener {
     public Label txtEmail1;
     @FXML
     public GridPane gridBoard;
+    @FXML
+    public void initGame(){
+        System.out.println("Click:");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
