@@ -45,16 +45,15 @@ public class HomeLoginController{
                 // Obtener el controlador de la ventana HomeLogin
                 HomeController controller = loader.getController();
                 controller.setUser(us);
-                controller.initialize(loader.getLocation(), loader.getResources());
                 // Crear una nueva escena con la raíz cargada
                 Scene scene = new Scene(root);
                 // Configurar el escenario (Stage) y mostrar la escena
                 Stage stage = new Stage();
-                stage.setTitle("Home Login");
+                stage.setTitle("Home Damas");
                 stage.setScene(scene);
                 stage.show();
-                //Comenzar el juego
-                controller.init();
+                //Comenzar el juego, implementar boton para "buscar partida"
+                controller.initServer();
                 // Opcional: cerrar la ventana de inicio de sesión actual
                 ((Stage) user.getScene().getWindow()).close();
             } catch (IOException e) {
