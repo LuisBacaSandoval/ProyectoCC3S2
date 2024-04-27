@@ -2,8 +2,8 @@ package org.example.sprintthree.database;
 
 import java.sql.*;
 public class ConnectionBD {
-    private  Connection conexion = null;
-    public  void startConnection(){//conectarse a la base de datos
+    private static  Connection conexionBD = null;
+    public static void startConnection(){//conectarse a la base de datos
         // Credenciales de la base de datos
         String bd = "proyectocc3s2";
         String url = "jdbc:mysql://localhost:3306/";
@@ -18,22 +18,22 @@ public class ConnectionBD {
         }
     }
 
-    public void endConnection(){//desconectarse de la base de datos
+    public static void endConnection(){//desconectarse de la base de datos
         try {
-            if (conexion != null) {
-                conexion.close();
+            if (conexionBD != null) {
+                conexionBD.close();
                 System.out.println("Conexión cerrada correctamente.");
-                conexion = null; // Limpiar la conexión después de cerrarla
+                conexionBD = null; // Limpiar la conexión después de cerrarla
             }
         } catch (SQLException e) {
             System.out.println("Error al cerrar la conexión: " + e.getMessage());
         }
     }
-    public Connection getConexion() {
-        return conexion;
+    public static Connection getConexion() {
+        return conexionBD;
     }
 
-    public void setConexion(Connection conexion) {
-        this.conexion = conexion;
+    public static void setConexion(Connection conexion) {
+        conexionBD = conexion;
     }
 }
