@@ -78,6 +78,7 @@ public class Game {
         }
 
         if (isGameOver() == true){
+            User winUser = winningPlayer();
             Notification notification = new Notification("Juego finalizado", "information");
             notification.getNotification().showAndWait();
         }else{//verificar cuantas fichas restantes hay
@@ -102,6 +103,9 @@ public class Game {
         }else {
             currentPlayer = "BLACK";
         }
+    }
+    public User winningPlayer(){
+        return currentPlayer==user1.getColor()? user1 : user2;
     }
     public boolean isGameOver() {//metodo para verificar si el juego finalizó
         int totalBlack = 0;
@@ -129,4 +133,11 @@ public class Game {
         this.board = board;
     }
 
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(String currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 }

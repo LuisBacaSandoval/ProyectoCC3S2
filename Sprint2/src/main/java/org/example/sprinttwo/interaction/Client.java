@@ -11,7 +11,7 @@ public class Client {
     PrintWriter salida;
     public void initClient(User us1) {
         try {
-            // Establece la conexión con el servidor (la computadora)
+            // Establece la conexión con el servidor
             Socket socket = new Socket("localhost", 9000);
             //Establece el objeto para enviar mensajes al servidor
             salida = new PrintWriter(socket.getOutputStream(), true);
