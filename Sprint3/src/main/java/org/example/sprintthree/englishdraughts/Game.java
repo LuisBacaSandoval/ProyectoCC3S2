@@ -4,24 +4,22 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import org.example.sprintthree.guicontroller.HomeController;
+import org.example.sprintthree.interaction.Client;
 import org.example.sprintthree.others.Notification;
 
 public class Game {
     Board board;
     GridPane gridBoard;
-    User user1;
-    User user2;
     private String currentPlayer;
-    public Game(GridPane gridBoard, int[][] boardInt, User user1, User user2){
+    public Game(GridPane gridBoard, int[][] boardInt){
         this.gridBoard = gridBoard;
         board = new Board();
         board.initializeBoard(boardInt);
-        this.user1 = user1;
-        this.user2 = user2;
         this.currentPlayer = "BLACK";
     }
-    public void handleMove(int fromRow,int fromCol,int toRow,int toCol, String jugador){
-        if (jugador!=this.currentPlayer){
+    public void handleMove(int fromRow,int fromCol,int toRow,int toCol, String moveOf, Boolean isUserMove){
+        if (!moveOf.equals(this.currentPlayer)){//verifica si es el turno del que hizo el movimiento
             return;
         }
         Image imageBoxBlack = new Image("/assets/EspacionNegro.png");
@@ -29,15 +27,12 @@ public class Game {
         imageBox.setFitWidth(43);
         imageBox.setFitHeight(43);
 
-        Image imagePieceBR = new Image("/assets/fichaRn.jpg");
-        if (board.grid[fromRow][fromCol].getColor() == 2){
-            imagePieceBR = new Image("/assets/fichaNn.jpg");
-        }
+        Image imagePieceBR = new Image(board.grid[fromRow][fromCol].getColor() == 1?"/assets/fichaRn.jpg":"/assets/fichaNn.jpg");
         ImageView imagePiece = new ImageView(imagePieceBR);
         imagePiece.setFitWidth(43);
         imagePiece.setFitHeight(43);
 
-        if(board.movePiece(fromRow, fromCol, toRow, toCol)){
+        if(board.movePiece(fromRow, fromCol, toRow, toCol)){//si es un movimiento valido se muestra en la interfaz
             Button button1;
             for (javafx.scene.Node node : gridBoard.getChildren()) {
                 Integer rowIndex = GridPane.getRowIndex(node);
@@ -57,11 +52,11 @@ public class Game {
                     break;
                 }
             }
-        }else{
+        }else{//si no es un movimiento valido no hace nada
             return;
         }
 
-        if (board.eat){
+        if (board.eat){//si una ficha fue "comida" desaparece la ficha de la interfaz
             imageBoxBlack = new Image("/assets/EspacionNegro.png");
             imageBox = new ImageView(imageBoxBlack);
             imageBox.setFitWidth(43);
@@ -77,9 +72,13 @@ public class Game {
             }
         }
 
-        if (isGameOver() == true){
-            User winUser = winningPlayer();
-            Notification notification = new Notification("Juego finalizado", "information");
+        if (isUserMove){//enviamos movimiento al oponente
+            Client.sendMove(fromRow, fromCol, toRow, toCol, moveOf);
+        }
+        Boolean gameOver = isGameOver();
+        if (gameOver){//verficamos el fin del juego
+            Player winPlayer = winningPlayer();
+            Notification notification = new Notification("Juego finalizado, ganador: "+winPlayer.getNombre(), "information");
             notification.getNotification().showAndWait();
         }else{//verificar cuantas fichas restantes hay
             int totalBlack = 0;
@@ -95,17 +94,17 @@ public class Game {
                 }
             }
             System.out.println("Total rojas: "+totalRed);
-            System.out.println("Total rojas: "+totalBlack);
+            System.out.println("Total negras: "+totalBlack);
         }
-        //cambiamos de turno
-        if (currentPlayer == "BLACK"){
+
+        if (currentPlayer == "BLACK"){//cambiamos de turno
             currentPlayer = "RED";
         }else {
             currentPlayer = "BLACK";
         }
     }
-    public User winningPlayer(){
-        return currentPlayer==user1.getColor()? user1 : user2;
+    public Player winningPlayer(){
+        return currentPlayer== HomeController.getPlayer1().getColorPiece() ? HomeController.getPlayer1() : HomeController.getPlayer2();
     }
     public boolean isGameOver() {//metodo para verificar si el juego finalizó
         int totalBlack = 0;

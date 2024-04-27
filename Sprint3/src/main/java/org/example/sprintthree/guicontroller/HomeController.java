@@ -3,36 +3,26 @@ package org.example.sprintthree.guicontroller;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import org.example.sprintthree.englishdraughts.Board;
 import org.example.sprintthree.englishdraughts.Game;
-import org.example.sprintthree.englishdraughts.User;
+import org.example.sprintthree.englishdraughts.Player;
 import org.example.sprintthree.interaction.Client;
-import org.example.sprintthree.interaction.Server;
-import org.example.sprintthree.others.Notification;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable, InvalidationListener {
-    Client client;
-    private User us1;
-    private User us2;
-    private int[][] board;
+    private boolean isUserMove = true; // Agrega esta bandera
+    private static Player player1 = new Player();
+    private static Player player2 = new Player();
+    private int[][] initBoard;
     private int firstButtonPressRow = -1;
     private int firstButtonPressColumn = -1;
     Game game;
@@ -49,13 +39,16 @@ public class HomeController implements Initializable, InvalidationListener {
     @FXML
     public Label txtEmail2;
     @FXML
-    public Button btnInit;
-    @FXML
     public GridPane gridBoard;
+    @FXML
+    public ImageView imgRed;
+    @FXML
+    public ImageView imgBlack;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        board = new int[8][8];
+        setValues();//asigna datos de los jugadores
+        initBoard = new int[8][8];//arreglo que guardara las posiciones iniciales de las fichas
         // asignar colores al tablero
         for (int row = 0; row < gridBoard.getRowCount(); row++) {
             for (int col = 0; col < gridBoard.getColumnCount(); col++) {
@@ -85,25 +78,26 @@ public class HomeController implements Initializable, InvalidationListener {
                         firstButtonPressRow = r;
                         firstButtonPressColumn = c;
                     } else {
-                        String player = "";//variable para saber que jugador hace el movimiento
+                        String moveOf = "";//variable para saber que jugador hace el movimiento
                         if(game.getBoard().grid[firstButtonPressRow][firstButtonPressColumn].getColor() == 1){
-                            player = "RED";
+                            moveOf = player2.getColorPiece();
                         }else{
-                            player = "BLACK";
+                            moveOf = player1.getColorPiece();
                         }
                         // Segundo botón presionado, llama a la función handleMove()
-                        game.handleMove(firstButtonPressRow, firstButtonPressColumn, r, c, player);
+                        game.handleMove(firstButtonPressRow, firstButtonPressColumn, r, c, moveOf, isUserMove);
                         // Reinicia las variables de estado para el próximo par de botones
                         firstButtonPressRow = -1;
                         firstButtonPressColumn = -1;
                     }
                 });
-                button.setGraphic(imageView);
-                button.setDisable(true);
-                gridBoard.add(button, col, row);
-                board[row][col] = 0;
+                button.setGraphic(imageView);//añadimos las imagenes para cada boton
+                gridBoard.add(button, col, row);//añadimos el boton a cada casilla del gridpane
+                initBoard[row][col] = 0;
             }
         }
+        addPieces(gridBoard);//añadimos las piezas al tablero
+        game = new Game(gridBoard, initBoard);// iniciamos el juego
     }
     private void addPieces(GridPane tablero) {
         //agrega la imagen para la ficha roja
@@ -111,7 +105,7 @@ public class HomeController implements Initializable, InvalidationListener {
             for (int columna = (fila + 1) % 2; columna < gridBoard.getColumnCount(); columna += 2) {
                 Image fichaRoja = new Image("/assets/fichaRn.jpg");
                 addPiece(tablero, fila, columna, fichaRoja);
-                board[fila][columna] = 1;
+                initBoard[fila][columna] = 1;
             }
         }
         // agrega la imagen para la ficha negra
@@ -119,7 +113,7 @@ public class HomeController implements Initializable, InvalidationListener {
             for (int columna = (fila + 1) % 2; columna < gridBoard.getColumnCount(); columna += 2) {
                 Image fichaNegra = new Image("/assets/fichaNn.jpg");
                 addPiece(tablero, fila, columna, fichaNegra);
-                board[fila][columna] = 2;
+                initBoard[fila][columna] = 2;
             }
         }
     }
@@ -138,54 +132,43 @@ public class HomeController implements Initializable, InvalidationListener {
             }
         }
     }
-    public void initServer(){
-        Server servidor = new Server(us2 = new User());
-        servidor.addListener(this);
-        Thread t = new Thread(servidor);
-        t.start();
+    public void setValues(){
+        welcome1.setText("Bienvenido...");
+        welcome2.setText("Bienvenido...");
+        Image image1 = new Image("/assets/fichaRn.jpg");
+        Image image2 = new Image("/assets/fichaNn.jpg");
+        imgRed.setImage(image1);
+        imgBlack.setImage(image2);
+        txtUser1.setText(player2.getNombre());
+        txtEmail1.setText(player2.getCorreo());
+        txtUser2.setText(player1.getNombre());
+        txtEmail2.setText(player1.getCorreo());
+
     }
-    @FXML
-    public void initGame(){
-        client = new Client();
-        client.initClient(us1);
-        btnInit.setVisible(false);
-        for (javafx.scene.Node node : gridBoard.getChildren()) {
-            if (node instanceof Button) {
-                Button button = (Button) node;
-                button.setDisable(false);
-            }
-        }
-        addPieces(gridBoard);
-        game = new Game(gridBoard, board, us1, us2);
+    public static Player getPlayer1() {
+        return player1;
     }
-    public void setUser(User us){
-        this.us1 = us;
+    public static void setPlayer1(Player player1) {
+        HomeController.player1 = player1;
+    }
+    public static Player getPlayer2() {
+        return player2;
+    }
+    public static void setPlayer2(Player player2) {
+        HomeController.player2 = player2;
     }
     @Override
     public void invalidated(Observable observable) {
-        if (observable instanceof Server) {
-            Server servidor = (Server) observable;
+        if (observable instanceof Client) {
+            Client cliente = (Client) observable;
+            String[] message = cliente.mensaje.split(",");
+            int fromRow = Integer.parseInt(message[0]);
+            int fromCol = Integer.parseInt(message[1]);
+            int toRow = Integer.parseInt(message[2]);
+            int toCol = Integer.parseInt(message[3]);
+            String moveOf = message[4];
             Platform.runLater(() -> {
-                if (us2!=null && servidor.mensajeDesdeLaptop==""){
-                    welcome1.setText("Bienvenido...");
-                    welcome2.setText("Bienvenido...");
-                    if (us1.getColor()=="NEGRO"){
-                        txtUser1.setText(us1.getNombre());
-                        txtEmail1.setText(us1.getCorreo());
-                        txtUser2.setText(us2.getNombre());
-                        txtEmail2.setText(us2.getCorreo());
-                    }else{
-                        txtUser1.setText(us2.getNombre());
-                        txtEmail1.setText(us2.getCorreo());
-                        txtUser2.setText(us1.getNombre());
-                        txtEmail2.setText(us1.getCorreo());
-                    }
-                }
-                if (servidor.mensajeDesdeLaptop!=""){
-                    Notification notification = new Notification("Movimiento: "+servidor.mensajeDesdeLaptop, "information");
-                    Alert alert = notification.getNotification();
-                    alert.showAndWait();
-                }
+                game.handleMove(fromRow, fromCol, toRow, toCol, moveOf, false);
             });
         }
     }

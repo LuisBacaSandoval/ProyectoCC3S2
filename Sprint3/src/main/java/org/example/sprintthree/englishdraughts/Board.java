@@ -8,15 +8,15 @@ public class Board {
         this.grid = new Piece[8][8]; // Tablero de 8x8
     }
 
-    public void initializeBoard(int[][] boardInt) {
+    public void initializeBoard(int[][] boardInt) { //inicializa el tablero
         for (int i=0; i<8; i++){
             for(int j =0 ; j<8;j++){
                 Piece piece;
                 if (boardInt[i][j] == 1){
-                    piece = new Piece(1);
+                    piece = new Piece(1);//ficha RED
                     grid[i][j] = piece;
                 } else if (boardInt[i][j] == 2) {
-                    piece = new Piece(2);
+                    piece = new Piece(2);//ficha BLACK
                     grid[i][j] = piece;
                 }else{
                     piece = new Piece(0);
@@ -53,9 +53,9 @@ public class Board {
             return true;
         }
 
-        // Verificar si el movimiento es válido (diagonalmente una casilla)
+        // Verificar si el movimiento es válido (diagonalmente una casilla hacia adelante)
         if (!isValidDiagonalMove(fromRow, fromCol, toRow, toCol)) {
-            System.out.println("Movimiento inválido. Las damas solo pueden moverse en diagonal una casilla.");
+            System.out.println("Movimiento inválido. Las damas solo pueden moverse en diagonal una casilla hacia adelante.");
             return false;
         }
 
@@ -64,17 +64,9 @@ public class Board {
         grid[toRow][toCol] = grid[fromRow][fromCol];
         grid[fromRow][fromCol] = p;
         eat = false;
-        for (int i = 0; i<8; i++){
-            for (int j=0; j<8;j++){
-                System.out.print(grid[i][j].getColor()+ "\t");
-            }
-            System.out.println();
-        }
-        System.out.println();
         return true;
     }
-    // Verificar si se puede comer una pieza
-    private boolean canEatPiece(int fromRow, int fromCol, int toRow, int toCol) {
+    private boolean canEatPiece(int fromRow, int fromCol, int toRow, int toCol) {// Verificar si se puede comer una pieza
         int rowDifference = toRow - fromRow;
         int colDifference = toCol - fromCol;
 
@@ -90,8 +82,7 @@ public class Board {
         }
         return false;
     }
-    // Comer la pieza
-    private void eatPiece(int fromRow, int fromCol, int toRow, int toCol) {
+    private void eatPiece(int fromRow, int fromCol, int toRow, int toCol) {// Comer la pieza
         int rowDifference = toRow - fromRow;
         int colDifference = toCol - fromCol;
 
@@ -110,12 +101,25 @@ public class Board {
     private boolean isValidSquare(int row, int col) {
         return row >= 0 && row < 8 && col >= 0 && col < 8;
     }
-
     // Verificar si el movimiento es diagonal de una casilla
     private boolean isValidDiagonalMove(int fromRow, int fromCol, int toRow, int toCol) {
         int rowDifference = Math.abs(toRow - fromRow);
         int colDifference = Math.abs(toCol - fromCol);
-        return rowDifference == 1 && colDifference == 1;
+
+        // Verificar si el movimiento es diagonal de una casilla
+        if (rowDifference!= 1 || colDifference!= 1) {
+            return false;
+        }
+
+        // Verificar si la pieza se mueve hacia adelante
+        Piece piece = grid[fromRow][fromCol];
+        if (piece.getColor() == 1) { // Dama roja
+            return toRow > fromRow; // Solo se puede mover hacia abajo
+        } else if (piece.getColor() == 2) { // Dama negra
+            return toRow < fromRow; // Solo se puede mover hacia arriba
+        }
+
+        return false;
     }
 
     public int[][] getPossibleMoves() {

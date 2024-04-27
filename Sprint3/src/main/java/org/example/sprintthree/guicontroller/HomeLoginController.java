@@ -10,7 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.sprintthree.Main;
 import org.example.sprintthree.database.ConnectionBD;
-import org.example.sprintthree.englishdraughts.User;
+import org.example.sprintthree.database.RequestUser;
+import org.example.sprintthree.database.SesionUser;
 import org.example.sprintthree.others.Notification;
 
 import java.io.IOException;
@@ -29,39 +30,35 @@ public class HomeLoginController{
         String contrasenia = password.getText();
 
         if (verifyItems(usuario, contrasenia)){
-            //conectarse a la base de datos
-            ConnectionBD cnx = new ConnectionBD();
-            cnx.startConnection();
-            User us = new User();
-            us.setUser(cnx, usuario, contrasenia);
+            ConnectionBD.startConnection();//conectarse a la base de datos
 
-            if(us.getId()==99999999) return;
+            RequestUser.setUser(usuario, contrasenia);//buscar el usuario en la bds
 
-            //Llamar a la ventana home-login
+            SesionUser.setUsuarioActual(RequestUser.getUser());//asignar el usuario logueado
+
+            if(SesionUser.getUsuarioActual().getId()==99999999) return;
+
+            //Llamar a la ventana home-information-login
             try {
-                // Cargar la vista FXML de home-login
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/home-view.fxml"));
+                // Cargar la vista FXML de home-information
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/home-information-view.fxml"));
                 Parent root = loader.load();
-                // Obtener el controlador de la ventana HomeLogin
-                HomeController controller = loader.getController();
-                controller.setUser(us);
+                // Obtener el controlador
+                HomeInformationView controller = loader.getController();
+                controller.setInformation();
                 // Crear una nueva escena con la raíz cargada
                 Scene scene = new Scene(root);
                 // Configurar el escenario (Stage) y mostrar la escena
                 Stage stage = new Stage();
-                stage.setTitle("Home Damas");
+                stage.setTitle("Información de usuario");
                 stage.setScene(scene);
-                stage.show();
-                //Comenzar el juego, implementar boton para "buscar partida"
                 controller.initServer();
-                // Opcional: cerrar la ventana de inicio de sesión actual
+                stage.show();
+                // cerrar la ventana de inicio de sesión actual
                 ((Stage) user.getScene().getWindow()).close();
             } catch (IOException e) {
                 e.printStackTrace();
-                // Manejar cualquier excepción que pueda ocurrir al cargar la ventana HomeLogin
             }
-
-            cnx.endConnection();
         }else {
             Notification alerta = new Notification("El usuario y/o contraseña son incorrectos", "error");
             alerta.getNotification().showAndWait();
