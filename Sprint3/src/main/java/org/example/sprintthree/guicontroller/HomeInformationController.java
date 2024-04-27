@@ -17,7 +17,7 @@ import org.example.sprintthree.interaction.Server;
 
 import java.io.IOException;
 
-public class HomeInformationView implements InvalidationListener {
+public class HomeInformationController implements InvalidationListener {
     Server servidor;
     Client cliente;
     @FXML

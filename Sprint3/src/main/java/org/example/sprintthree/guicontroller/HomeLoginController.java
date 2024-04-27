@@ -44,7 +44,7 @@ public class HomeLoginController{
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/home-information-view.fxml"));
                 Parent root = loader.load();
                 // Obtener el controlador
-                HomeInformationView controller = loader.getController();
+                HomeInformationController controller = loader.getController();
                 controller.setInformation();
                 // Crear una nueva escena con la raíz cargada
                 Scene scene = new Scene(root);
