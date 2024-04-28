@@ -66,7 +66,7 @@ public class Board {
         eat = false;
         return true;
     }
-    private boolean canEatPiece(int fromRow, int fromCol, int toRow, int toCol) {// Verificar si se puede comer una pieza
+    public boolean canEatPiece(int fromRow, int fromCol, int toRow, int toCol) {// Verificar si se puede comer una pieza
         int rowDifference = toRow - fromRow;
         int colDifference = toCol - fromCol;
 
@@ -82,7 +82,7 @@ public class Board {
         }
         return false;
     }
-    private void eatPiece(int fromRow, int fromCol, int toRow, int toCol) {// Comer la pieza
+    public void eatPiece(int fromRow, int fromCol, int toRow, int toCol) {// Comer la pieza
         int rowDifference = toRow - fromRow;
         int colDifference = toCol - fromCol;
 
@@ -98,11 +98,11 @@ public class Board {
         grid[fromRow][fromCol] = p;
     }
     // Verificar si las coordenadas están dentro del tablero
-    private boolean isValidSquare(int row, int col) {
+    public boolean isValidSquare(int row, int col) {
         return row >= 0 && row < 8 && col >= 0 && col < 8;
     }
     // Verificar si el movimiento es diagonal de una casilla
-    private boolean isValidDiagonalMove(int fromRow, int fromCol, int toRow, int toCol) {
+    public boolean isValidDiagonalMove(int fromRow, int fromCol, int toRow, int toCol) {
         int rowDifference = Math.abs(toRow - fromRow);
         int colDifference = Math.abs(toCol - fromCol);
 

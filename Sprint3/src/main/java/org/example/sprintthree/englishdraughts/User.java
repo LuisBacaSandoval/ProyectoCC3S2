@@ -1,8 +1,5 @@
 package org.example.sprintthree.englishdraughts;
 
-import org.example.sprintthree.database.ConnectionBD;
-import org.example.sprintthree.database.RequestUser;
-
 public class User {
     private int id;
     private String nombre;
