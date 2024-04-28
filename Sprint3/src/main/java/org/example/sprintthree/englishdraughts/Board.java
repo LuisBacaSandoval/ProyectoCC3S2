@@ -87,7 +87,18 @@ public class Board {
 
             // Verificar si hay una pieza en la casilla intermedia
             if (grid[midRow][midCol].getColor()!= 0 && grid[midRow][midCol].getColor()!= grid[fromRow][fromCol].getColor()) {
-                return true;
+                if (grid[fromRow][fromCol].isKing()) {
+                    return true; // Si es una "DAMA", puede comer en cualquier dirección
+                } else {
+                    // Para fichas RED (1), solo pueden comer hacia arriba
+                    if (grid[fromRow][fromCol].getColor() == 1 && rowDifference > 0) {
+                        return true;
+                    }
+                    // Para fichas BLACK (2), solo pueden comer hacia abajo
+                    if (grid[fromRow][fromCol].getColor() == 2 && rowDifference < 0) {
+                        return true;
+                    }
+                }
             }
         }
         return false;

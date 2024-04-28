@@ -71,3 +71,5 @@ Cuando no queden fichas de algún color se declarará fin del juego.
 ![finish](../img/finish.PNG)
 
 ## Enlaces
+
+[Sprint 2](https://docs.google.com/document/d/1bHAlzOnbjDAZKKcpnJ_M1PmTwqFVrzi9/edit)
