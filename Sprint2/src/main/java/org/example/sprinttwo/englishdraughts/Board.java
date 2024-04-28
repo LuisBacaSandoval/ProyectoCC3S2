@@ -64,13 +64,6 @@ public class Board {
         grid[toRow][toCol] = grid[fromRow][fromCol];
         grid[fromRow][fromCol] = p;
         eat = false;
-        for (int i = 0; i<8; i++){
-            for (int j=0; j<8;j++){
-                System.out.print(grid[i][j].getColor()+ "\t");
-            }
-            System.out.println();
-        }
-        System.out.println();
         return true;
     }
     // Verificar si se puede comer una pieza

@@ -72,6 +72,22 @@ public class Game {
             }
         }
 
+        if (board.grid[toRow][toCol].isKing()){
+            Image imagePieceDama = new Image(board.grid[toRow][toCol].getColor() == 1?"/assets/fichaRRn.jpg":"/assets/fichaRNn.jpg");
+            ImageView imgDama = new ImageView(imagePieceDama);
+            imgDama.setFitWidth(43);
+            imgDama.setFitHeight(43);
+            for (javafx.scene.Node node : gridBoard.getChildren()) {
+                Integer rowIndex = GridPane.getRowIndex(node);
+                Integer columnIndex = GridPane.getColumnIndex(node);
+                if (rowIndex != null && columnIndex != null && rowIndex == toRow && columnIndex == toCol && node instanceof Button) {
+                    Button button = (Button) node;
+                    button.setGraphic(imgDama);
+                    break;
+                }
+            }
+        }
+
         if (isUserMove){//enviamos movimiento al oponente
             Client.sendMove(fromRow, fromCol, toRow, toCol, moveOf);
         }

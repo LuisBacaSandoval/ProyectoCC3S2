@@ -73,7 +73,7 @@ public class BoardTest {
     @DisplayName("Prueba: movimiento invalido")
     void testInvalidMoveNoPiece() {
         board.initializeBoard(boardInt);
-        boolean result = board.movePiece(4, 2, 3, 3);
+        boolean result = board.movePiece(5, 2, 4, 2);
         assertFalse(result);
     }
 

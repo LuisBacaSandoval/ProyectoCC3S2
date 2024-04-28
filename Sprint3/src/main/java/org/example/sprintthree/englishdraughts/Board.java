@@ -50,6 +50,10 @@ public class Board {
             // Comer la pieza
             eatPiece(fromRow, fromCol, toRow, toCol);
             eat = true;
+            // Verificar si la pieza debe ser coronada como "DAMA"
+            if ((grid[toRow][toCol].getColor() == 1 && toRow == 7) || (grid[toRow][toCol].getColor() == 2 && toRow == 0)) {
+                grid[toRow][toCol].makeKing();
+            }
             return true;
         }
 
@@ -64,6 +68,12 @@ public class Board {
         grid[toRow][toCol] = grid[fromRow][fromCol];
         grid[fromRow][fromCol] = p;
         eat = false;
+
+        // Verificar si la pieza debe ser coronada como "DAMA"
+        if ((grid[toRow][toCol].getColor() == 1 && toRow == 7) || (grid[toRow][toCol].getColor() == 2 && toRow == 0)) {
+            grid[toRow][toCol].makeKing();
+        }
+
         return true;
     }
     public boolean canEatPiece(int fromRow, int fromCol, int toRow, int toCol) {// Verificar si se puede comer una pieza
@@ -113,10 +123,15 @@ public class Board {
 
         // Verificar si la pieza se mueve hacia adelante
         Piece piece = grid[fromRow][fromCol];
-        if (piece.getColor() == 1) { // Dama roja
-            return toRow > fromRow; // Solo se puede mover hacia abajo
-        } else if (piece.getColor() == 2) { // Dama negra
-            return toRow < fromRow; // Solo se puede mover hacia arriba
+        if (piece.isKing()) { // Si la pieza es una "DAMA"
+            return true; // Puede moverse hacia arriba o hacia abajo
+        } else {
+            // Si la pieza no es una "DAMA"
+            if (piece.getColor() == 1) { // Dama roja
+                return toRow > fromRow; // Solo se puede mover hacia abajo
+            } else if (piece.getColor() == 2) { // Dama negra
+                return toRow < fromRow; // Solo se puede mover hacia arriba
+            }
         }
 
         return false;

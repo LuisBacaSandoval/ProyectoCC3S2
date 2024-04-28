@@ -94,8 +94,8 @@ public class Game {
                     }
                 }
             }
-            System.out.println("Total rojas: "+totalRed);
-            System.out.println("Total rojas: "+totalBlack);
+            System.out.println("Total RED: "+totalRed);
+            System.out.println("Total BLACK: "+totalBlack);
         }
         //cambiamos de turno
         if (currentPlayer == "BLACK"){
