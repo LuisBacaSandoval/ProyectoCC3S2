@@ -22,9 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable, InvalidationListener {
-    private static final int TAMANO_CASILLA = 43;
     private static final int TAMANO_TABLERO = 8;
-
     private User us1;
     @FXML
     public Label txtUser1;

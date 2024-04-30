@@ -22,7 +22,7 @@ public class Client implements Observable {
     public void initClient() {
         try {
             // Establece la conexión con el servidor (la computadora)
-            Socket socket = new Socket("localhost", 8000);
+            Socket socket = new Socket("192.168.1.7", 8000);
             //Establece el objeto para enviar mensajes al servidor
             salida = new PrintWriter(socket.getOutputStream(), true);
             entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));

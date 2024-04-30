@@ -33,16 +33,31 @@ public class HomeLoginController{
             ConnectionBD cnx = new ConnectionBD();
             cnx.startConnection();
             User us = new User();
-            us.setUser(cnx, usuario, contrasenia);
-
+            /*
+            ************************************************************************************************
+            * IMPORTANTE!
+            ************************************************************************************************
+            * COMENTAR EL SIGUIENTE IF/ELSE SI CONFIGURASTE EL SISTEMA DE PERSISTENCIA USANDO XAMPP
+            * Y AGREGAR:
+            * us.setUser(cnx, usuario, contrasenia);
+            * EN VEZ DEL IF/ELSE
+             ************************************************************************************************
+            */
+            if (cnx.getConexion()==null){
+                us.setId(1);
+                us.setNombre("Example1");
+                us.setCorreo("example1.s@uni.pe");
+            }else {
+                us.setUser(cnx, usuario, contrasenia);
+            }
             if(us.getId()==99999999) return;
 
-            //Llamar a la ventana home-login
+            //Llamar a la ventana home
             try {
-                // Cargar la vista FXML de home-login
+                // Cargar la vista FXML de home
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("gui/home-view.fxml"));
                 Parent root = loader.load();
-                // Obtener el controlador de la ventana HomeLogin
+                // Obtener el controlador de la ventana Home
                 HomeController controller = loader.getController();
                 controller.setUser(us);
                 controller.initialize(loader.getLocation(), loader.getResources());
@@ -50,18 +65,16 @@ public class HomeLoginController{
                 Scene scene = new Scene(root);
                 // Configurar el escenario (Stage) y mostrar la escena
                 Stage stage = new Stage();
-                stage.setTitle("Home Login");
+                stage.setTitle("Home");
                 stage.setScene(scene);
                 stage.show();
                 //Comenzar el juego
                 controller.init();
-                // Opcional: cerrar la ventana de inicio de sesión actual
+                // Cerrar la ventana de inicio de sesión actual
                 ((Stage) user.getScene().getWindow()).close();
             } catch (IOException e) {
                 e.printStackTrace();
-                // Manejar cualquier excepción que pueda ocurrir al cargar la ventana HomeLogin
             }
-
             cnx.endConnection();
         }else {
             Notification alerta = new Notification("El usuario y/o contraseña son incorrectos", "error");

@@ -16,26 +16,26 @@
     ->main.java.org.example.sprintOne
 	|
 	->database (contiene las clases para la conexión y manipulación de bases de datos)
-	|	->ConecctionBD
+	|   ->ConecctionBD
     |   ->RequestUser
 	|
 	->englishdraughts (contiene las clases que implementan la lógica del juego de damas)
-	|	->User
-	|	->Piece
-	|	->Board
-	|	->Game
+	|   ->User
+	|   ->Piece
+	|   ->Board
+	|   ->Game
 	|
     ->guicontroller (contiene los controladores de los archivos FXML para la interfaz gráfica de usuario)
-	|	->HomeController
-	|	->HomeLoginController
+	|   ->HomeController
+	|   ->HomeLoginController
 	|
 	->interaction (contiene las clases para la comunicación con otros jugadores)
-	|	->Client
-	|	->Server
+	|   ->Client
+	|   ->Server
 	|
 	->others (contiene clases adicionales para diversas funcionalidades)
-		->Alert
-		->PasswordEncryption
+	    ->Alert
+	    ->PasswordEncryption
 ### Código de test
 
     ->test.java.org.example.sprintOne
@@ -44,15 +44,74 @@
 
 Inicia sesión, recuerda iniciar sesión con tu correo UNI y tu contraseña debe contener 8 números.
 
-![login](../img/login.jpg)
+![login](../img/login.PNG)
 
-Al ingresar se mostrará tu información y buscará un adversario de manera automatica, también se mostrará el tablero vacío.
+Al ingresar se mostrará tu información y buscará un adversario de manera automatica, también se mostrará el tablero con fichas.
 
-![login](../img/home.jpg)
+![login](../img/home0.PNG)
+
+## ¡IMPORTANTE!
+
+Para participar en partidas de Damas Inglesas, se requiere la presencia de dos dispositivos para la interacción jugador-jugador, 
+siendo un requisito obligatorio. Además, se sugiere la implementación de un sistema de persistencia mediante MySQL para almacenar y 
+gestionar los datos de manera óptima.
+
+### Configuración de ambos dispositivos: To Do.
+
+### Configuración del sistema de persistencia:
+
+>1. Instala XAMPP, puedes descargarlo de:[XAMPP](https://www.apachefriends.org/es/index.html)
+
+>2. Presiona `Start` luego el botón de `Admin` de MySQL.
+
+![Config XAMPP](../img/xampp.PNG)
+
+>3. Se abrirá una ventana en tu navegador y nos dirigimos a `Nueva` para crear una Base de datos.
+    Agregamos el nombre "proyectocc3s2" y presionamos `Crear`.
+
+![PHPmyadmin](../img/phpmyadmin.PNG)
+
+>4. Dirigete hacia SQL, copia el código siguiente y presiona `Continuar`.
+
+![tablas](../img/tablas.PNG)
+```sql
+CREATE TABLE usuarios (
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   username VARCHAR(250) NOT NULL,
+   email VARCHAR(250) NOT NULL,
+   password VARCHAR(250) NOT NULL
+);
+CREATE TABLE partidas (
+id INT PRIMARY KEY AUTO_INCREMENT,
+fecha DATETIME NOT NULL,
+jugador1_id INT,
+jugador2_id INT,
+ganador_id INT,
+FOREIGN KEY (jugador1_id) REFERENCES usuarios(id),
+FOREIGN KEY (jugador2_id) REFERENCES usuarios(id),
+FOREIGN KEY (ganador_id) REFERENCES usuarios(id)
+);
+INSERT INTO usuarios (username, email, password) VALUES ('Example1', 'example1@uni.pe', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f');
+INSERT INTO usuarios (username, email, password) VALUES ('Example2', 'example2@uni.pe', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f');
+INSERT INTO usuarios (username, email, password) VALUES ('Luis Jhonatan', 'luis.baca.s@uni.pe', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f');
+INSERT INTO usuarios (username, email, password) VALUES ('Jose Eduardo', 'jose@uni.pe', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f');
+```
+
+>5. Finalmente puedes ingresar al juego con los siguientes usuarios, todos con contraseña 12345678:
+- example1@uni.pe
+- example1@uni.pe
+- luis.baca.s@uni.pe
+- jose@uni.pe
+
+
+Nota: Para poder jugar no es necesario implementar el sistema de persistencia, el código se modificó para que no sea necesario.
 
 ## Enlaces
-Diseño de la Interfaz Gráfica: [Figma](https://www.figma.com/file/oyr1ETp0ox2mi2joxj76XD/Damas-Americanas?type=design&node-id=0-1&mode=design&t=jdEKVgzLTlriDhA8-0)
 
-Enlace Sprint 1: [Sprint 1](https://docs.google.com/document/d/1J4eUTV7wDOrLEDDubRVQ8W7uxTKxuHfs/edit)
+[Micro Carta](https://docs.google.com/document/d/1tbvT4GIgyrEIkrK0AWzixg5fMYJPoqmTBbkzST-zx4M/edit)
 
-Informe de Estado Inicial: [Informe](https://docs.google.com/document/d/1jNWqpodPY4oK1j_nxgunKu_II731s1Sb/edit)
+[Enlace Sprint 1](https://docs.google.com/document/d/1J4eUTV7wDOrLEDDubRVQ8W7uxTKxuHfs/edit)
+
+[Diseño de la Interfaz Gráfica](https://www.figma.com/file/oyr1ETp0ox2mi2joxj76XD/Damas-Americanas?type=design&node-id=0-1&mode=design&t=jdEKVgzLTlriDhA8-0)
+
+[Informe de Estado Inicial](https://docs.google.com/document/d/1jNWqpodPY4oK1j_nxgunKu_II731s1Sb/edit)
