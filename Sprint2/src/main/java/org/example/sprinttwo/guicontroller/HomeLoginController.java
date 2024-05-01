@@ -33,7 +33,23 @@ public class HomeLoginController{
             ConnectionBD cnx = new ConnectionBD();
             cnx.startConnection();
             User us = new User();
-            us.setUser(cnx, usuario, contrasenia);
+            /*
+             ************************************************************************************************
+             * IMPORTANTE!
+             ************************************************************************************************
+             * COMENTAR EL SIGUIENTE IF/ELSE SI CONFIGURASTE EL SISTEMA DE PERSISTENCIA USANDO XAMPP
+             * Y AGREGAR:
+             * us.setUser(cnx, usuario, contrasenia);
+             * EN VEZ DEL IF/ELSE
+             ************************************************************************************************
+             */
+            if (cnx.getConexion()==null){
+                us.setId(1);
+                us.setNombre("Example1");
+                us.setCorreo("example1.s@uni.pe");
+            }else {
+                us.setUser(cnx, usuario, contrasenia);
+            }
 
             if(us.getId()==99999999) return;
 

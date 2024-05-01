@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("gui/home-login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 768, 576 );
-        stage.setTitle("Home Login Damas");
+        stage.setTitle("Iniciar Sesión");
         stage.setScene(scene);
         stage.show();
     }

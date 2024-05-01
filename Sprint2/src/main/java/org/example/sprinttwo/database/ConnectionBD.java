@@ -3,7 +3,7 @@ package org.example.sprinttwo.database;
 import java.sql.*;
 public class ConnectionBD {
     private  Connection conexion = null;
-    public  void startConnection(){//conectarse a la base de datos
+    public  void startConnection(){
         // Credenciales de la base de datos
         String bd = "proyectocc3s2";
         String url = "jdbc:mysql://localhost:3306/";
