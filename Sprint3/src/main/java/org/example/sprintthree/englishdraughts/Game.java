@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import org.example.sprintthree.database.SesionUser;
 import org.example.sprintthree.guicontroller.HomeController;
 import org.example.sprintthree.interaction.Client;
 import org.example.sprintthree.others.Notification;
@@ -19,7 +20,9 @@ public class Game {
         this.currentPlayer = "BLACK";
     }
     public void handleMove(int fromRow,int fromCol,int toRow,int toCol, String moveOf, Boolean isUserMove){
-        if (!moveOf.equals(this.currentPlayer)){//verifica si es el turno del que hizo el movimiento
+        Player moveOfPlayer = (HomeController.getPlayer1().getColorPiece().equals(moveOf))?HomeController.getPlayer1():HomeController.getPlayer2();
+        //verifica si es el turno del que hizo el movimiento y si quien lo reliza es el jugador correspondiente
+        if (!moveOf.equals(this.currentPlayer) || (moveOfPlayer.getId()!= SesionUser.getUsuarioActual().getId()&&isUserMove)){
             return;
         }
         Image imageBoxBlack = new Image("/assets/EspacionNegro.png");

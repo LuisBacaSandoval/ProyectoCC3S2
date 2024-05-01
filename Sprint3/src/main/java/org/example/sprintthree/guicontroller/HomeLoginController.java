@@ -12,6 +12,7 @@ import org.example.sprintthree.Main;
 import org.example.sprintthree.database.ConnectionBD;
 import org.example.sprintthree.database.RequestUser;
 import org.example.sprintthree.database.SesionUser;
+import org.example.sprintthree.englishdraughts.User;
 import org.example.sprintthree.others.Notification;
 
 import java.io.IOException;
@@ -31,10 +32,25 @@ public class HomeLoginController{
 
         if (verifyItems(usuario, contrasenia)){
             ConnectionBD.startConnection();//conectarse a la base de datos
+            /*
+             ************************************************************************************************
+             * IMPORTANTE!
+             ************************************************************************************************
+             * COMENTAR EL SIGUIENTE IF/ELSE SI CONFIGURASTE EL SISTEMA DE PERSISTENCIA USANDO XAMPP
+             * Y AGREGAR:
+             * RequestUser.setUser(usuario, contrasenia);//buscar el usuario en la bds
+             * SesionUser.setUsuarioActual(RequestUser.getUser());//asignar el usuario logueado
+             * EN VEZ DEL IF/ELSE
+             ************************************************************************************************
+             */
+            if (ConnectionBD.getConexion()==null){
+                SesionUser.setUsuarioActual(new User(1, "Example1","example1@uni.pe"));
 
-            RequestUser.setUser(usuario, contrasenia);//buscar el usuario en la bds
+            }else {
+                RequestUser.setUser(usuario, contrasenia);//buscar el usuario en la bds
 
-            SesionUser.setUsuarioActual(RequestUser.getUser());//asignar el usuario logueado
+                SesionUser.setUsuarioActual(RequestUser.getUser());//asignar el usuario logueado
+            }
 
             if(SesionUser.getUsuarioActual().getId()==99999999) return;
 
